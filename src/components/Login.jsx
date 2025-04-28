@@ -5,6 +5,8 @@ export default function Login() {
 //  const [enteredPassword, setEnteredPassword] = useState('')
 const emailRef = useRef()
 const passRef = useRef()
+
+const [emailIsInvalid, setEmailIsInValid] = useState(false)
 // const [enteredValue, setEnteredValue] = useState({
 //   email: '',
 //   password: ''
@@ -14,6 +16,16 @@ const passRef = useRef()
   event.preventDefault();
   console.log(emailRef.current.value);
   console.log(passRef.current.value);
+  const enteredEmail = emailRef.current.value
+  const enteredPassword = passRef.current.value
+
+  const emailIsValid = enteredEmail.includes('@')
+
+  if(!emailIsValid) {
+    setEmailIsInValid(true);
+    return
+  }
+  setEmailIsInValid(false)
  }
 
 // const handleInputChange = (identifier, event) => {
@@ -37,6 +49,7 @@ const passRef = useRef()
         <div className="control no-margin">
           <label htmlFor="email">Email</label>
           <input id="email" type="email" name="email" ref={emailRef}/>
+          <div className="control-error">{emailIsInvalid && <p>Please enter correct email</p>}</div>
         </div>
 
         <div className="control no-margin">
